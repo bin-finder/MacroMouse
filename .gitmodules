@@ -1,0 +1,3 @@
+[submodule "lib/WEMOSmotorShield"]
+	path = lib/WEMOSmotorShield
+	url = https://github.com/wemos/WEMOS_Motor_Shield_Arduino_Library.git
