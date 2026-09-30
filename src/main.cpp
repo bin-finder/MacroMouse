@@ -1,8 +1,7 @@
-//#include <Arduino.h>
 #include <WEMOS_Motor.h>
 #include "TankBase.h"
 
-//Myy motors:
+//My motors:
 Motor Lmotor(0x30, _MOTOR_B, 1000);
 Motor Rmotor(0x30, _MOTOR_A, 1000);
 
