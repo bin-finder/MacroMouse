@@ -1,3 +1,4 @@
+#pragma once
 #include "WEMOS_Motor.h"
 
 class TankBase{
