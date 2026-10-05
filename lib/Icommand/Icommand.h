@@ -5,12 +5,15 @@
 #define maxSubProcesses 10
 
 class Icommand{
-
+    public:
+        enum commandStates {RUNNING, STOPED, NOT_STARTED};
     private:
     
         Icommand* subprocesses[maxSubProcesses];
 
         LazyArray<Icommand*> mySubprocesses = LazyArray<Icommand*>(subprocesses, maxSubProcesses);
+ 
+        commandStates state = NOT_STARTED;
 
     public:
 
@@ -24,21 +27,31 @@ class Icommand{
             }
         }
 
-        virtual void update() = 0;
+        void preStartup(){
+            state = RUNNING;
+            startup();
+        }
 
-        virtual void postStop() = 0;
+        virtual void update(){}
 
-        virtual void startup() = 0;
+        virtual void postStop(){}
+
+        virtual void startup(){}
 
         void stop(){
             for(int i = 0; i < mySubprocesses.getLastIndex(); i++){
                 mySubprocesses[i]->stop();
             }
+            state = STOPED;
             postStop();
         }
 
         void spinup(Icommand* newCommand){
             mySubprocesses.push_back(newCommand);
-            newCommand->startup();
+            newCommand->preStartup();
         }
+
+        commandStates getState(){
+            return state;
+        }        
 };

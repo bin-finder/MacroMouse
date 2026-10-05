@@ -6,16 +6,16 @@ class NoNoOne: public Icommand{
     int num;
     NoNoOne(int num): num(num){}
 
-    void startup(){
+    void startup() override{
         Serial.println("UUUUUAHH 1");
     }
 
-    void update(){
+    void update() override{
         Serial.print("Log ");
         Serial.println(num);
     }
 
-    void postStop(){
+    void postStop() override{
         Serial.print(num);
         Serial.println(" Died!");
     }
