@@ -4,18 +4,23 @@
 class NoNoOne: public Icommand{
     public:
     int num;
+    int itterator = 1;
     NoNoOne(int num): num(num){}
 
-    void startup() override{
-        Serial.println("UUUUUAHH 1\n Im wakeing up");
+    void startup(){
+        Serial.print("UUUUUAHH ");
+        Serial.print(num);
+        Serial.println(" Im wakeing up");
     }
 
-    void update() override{
+    void update(){
         Serial.print(num);
         Serial.println(" im just so radioactive");
+        if(itterator >= num) stop();
+        itterator++;
     }
 
-    void postStop() override{
+    void postStop(){
         Serial.print(num);
         Serial.println(" died of radiation poisioning.");
     }

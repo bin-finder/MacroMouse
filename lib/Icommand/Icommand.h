@@ -6,7 +6,7 @@
 
 class Icommand{
     public:
-        enum commandStates {RUNNING, STOPED, NOT_STARTED};
+        enum commandStates {STOPED, RUNNING, NOT_STARTED};
     private:
     
         Icommand* subprocesses[maxSubProcesses];
@@ -23,7 +23,7 @@ class Icommand{
         void preUpdate(){
             update();
             for(int i = 0; i < mySubprocesses.getLastIndex(); i++){
-                mySubprocesses[i]->preUpdate();
+                if(mySubprocesses[i]->getState() == RUNNING) mySubprocesses[i]->preUpdate();
             }
         }
 
