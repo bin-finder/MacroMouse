@@ -10,7 +10,7 @@ class ArrayCommand : public Icommand{
     private:
         Icommand** commands;
         unsigned int numCommands;
-        unsigned int currentCommand = 0;
+        unsigned int currentCommand;
     public:
 
         /**
@@ -20,6 +20,7 @@ class ArrayCommand : public Icommand{
         ArrayCommand(Icommand** commands, unsigned int numCommands): commands(commands), numCommands(numCommands){}
 
         void startup() override{
+            currentCommand = 0;
             commands[currentCommand]->preStartup();
         }
 

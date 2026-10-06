@@ -9,10 +9,15 @@ class LoopCommand: public Icommand{
         LoopCommand(Icommand* command) : command(command){}
         
         void startup() override{
-            spinup(command);
+            command->preStartup();
         }
 
         void update() override{
-            if(command->getState() == STOPED) spinup(command);
+            if(command->getState() == STOPED) command->preStartup();
+            command->preUpdate();
+        }
+
+        void postStop() override{
+            command->stop();
         }
 };

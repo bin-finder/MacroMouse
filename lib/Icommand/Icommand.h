@@ -18,6 +18,8 @@ class Icommand{
 
     public:
 
+        //Icommand(){}
+
         void preUpdate(){
             update();
             for(int i = 0; i < mySubprocesses.getLastIndex(); i++){

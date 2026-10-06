@@ -28,20 +28,26 @@ DriveCommand turn(-100,100,1,myBase);
 
 WaitCommand wait(1);
 
+WaitCommand initialWait(7);
+
 Icommand* drivePath[] = {&streight, &wait, &turn, &wait};
 ArrayCommand drivePathcmd(drivePath,4);
-
 LoopCommand driveLoop(&drivePathcmd);
 
+Icommand* mainLoop[] = {&initialWait,&driveLoop};
+ArrayCommand mainLoopCmd(mainLoop,2);
+
 // NoNoOne cmd1(4);
+// LoopCommand myLoop(&cmd1);
 // NoNoOne cmd2(3);
 // NoNoOne cmd3(2);
 // Icommand* commandArr1[] = {&cmd1, &cmd2, &cmd3};
-// ArrayCommand arr(commandArr1,3);
+// ArrayCommand SyncArr(commandArr1,3);
+// LoopCommand myLoop(&SyncArr);
 
 void setup() {
   Serial.begin(9600); 
-  base.spinup(&driveLoop);
+  base.spinup(&mainLoopCmd);
 }
 
 void loop() {  

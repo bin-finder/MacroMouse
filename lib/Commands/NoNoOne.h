@@ -4,10 +4,11 @@
 class NoNoOne: public Icommand{
     public:
     int num;
-    int itterator = 1;
+    int itterator;;
     NoNoOne(int num): num(num){}
 
     void startup(){
+        itterator = 1;
         Serial.print("UUUUUAHH ");
         Serial.print(num);
         Serial.println(" Im wakeing up");

@@ -7,31 +7,34 @@
 
 class Synchronous: public Icommand{
 
-    Icommand com1, com2;
+    Icommand** commands;
+    unsigned int numCommands;
 
     public:
 
         /**
-         * @param com1 The first command.
-         * @param com2 The sedond command.
+         * @param commands An array of pointers to commands.
+         * @param numCommands The number of commands in the array.
          */
 
-        Synchronous(Icommand& com1, Icommand& com2) : com1(com1), com2(com2){}
+        Synchronous(Icommand** commands, unsigned int numCommands) : commands(commands), numCommands(numCommands){}
 
         void startup() override{
-            com1.preStartup();
-            com2.preStartup();
+            for(unsigned int i = 0; i < numCommands; i++){
+                commands[i]->preStartup();
+            }
         }
 
         void update() override{
-            com1.update();
-            com2.update();
-            if(com1.getState() == STOPED) com2.stop();
-            else if(com2.getState() == STOPED) com1.stop();
+            for(unsigned int i = 0; i < numCommands; i++){
+                commands[i]->preUpdate();
+                if(commands[i]->getState() == STOPED) stop();
+            }
         }
 
         void postStop() override{
-            com1.stop();
-            com2.stop();
+            for(unsigned int i =0; i < numCommands; i++){
+                commands[i]->stop();
+            }
         }
 };

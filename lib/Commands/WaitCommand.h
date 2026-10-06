@@ -14,6 +14,6 @@ class WaitCommand: public Icommand{
         }
 
         void update() override{
-            if(millis() - startTime > time) stop();
+            if(millis() - startTime > time*1000) stop();
         }
 };
