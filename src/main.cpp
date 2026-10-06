@@ -22,9 +22,11 @@
 
 BaseCommand base = BaseCommand();
 
-NoNoOne cmd(4);
+NoNoOne cmd1(4);
+NoNoOne cmd2(3);
+NoNoOne cmd3(2);
 
-Icommand commandArr1[] = {NoNoOne(1),NoNoOne(2),NoNoOne(3)};
+Icommand* commandArr1[] = {&cmd1, &cmd2, &cmd3};
 ArrayCommand arr(commandArr1,3);
 
 void setup() {

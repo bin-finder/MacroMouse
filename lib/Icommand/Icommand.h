@@ -41,9 +41,9 @@ class Icommand{
         void stop(){
             for(int i = 0; i < mySubprocesses.getLastIndex(); i++){
                 mySubprocesses[i]->stop();
-            }
+            } 
+            if(state == RUNNING) postStop();
             state = STOPED;
-            postStop();
         }
 
         void spinup(Icommand* newCommand){
