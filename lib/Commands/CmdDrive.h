@@ -1,16 +1,16 @@
 #pragma once
-#include "TankBase.h"
+#include "HwTankBase.h"
 #include "Icommand.h"
 
 class CmdDrive: public Icommand{
     private:
         float powerLeft, powerRight, time;
-        TankBase& base;
+        HwTankBase& base;
 
         int startTime;
 
     public:
-        CmdDrive(float powerLeft, float powerRight, float time, TankBase& base): 
+        CmdDrive(float powerLeft, float powerRight, float time, HwTankBase& base): 
             powerLeft(powerLeft), 
             powerRight(powerRight), 
             time(time),

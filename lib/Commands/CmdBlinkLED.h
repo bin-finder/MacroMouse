@@ -1,18 +1,18 @@
 #pragma once
 #include "Icommand.h"
-#include "LED.h"
+#include "HwLED.h"
 #include "math.h"
 
 class CmdBinkLED: public Icommand{
 
     double value;
     int xMul;
-    LED& myLED;
+    HwLED& myLED;
     double flashFreq;
     unsigned long cycleStartTime;
 
     public:
-        CmdBinkLED(LED& myLED, int flashFreq): myLED(myLED), flashFreq(flashFreq){}
+        CmdBinkLED(HwLED& myLED, int flashFreq): myLED(myLED), flashFreq(flashFreq){}
 
         void startup() override{
             value = 0;

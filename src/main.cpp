@@ -5,10 +5,10 @@
 #include "LazyArray.h"
 #include "CmdAsync.h"
 #include "CmdDrive.h"
-#include "TankBase.h"
+#include "HwTankBase.h"
 #include "CmdWait.h"
 #include "CmdLoop.h"
-#include "LED.h"
+#include "HwLED.h"
 #include "CmdBlinkLED.h"
 
 
@@ -16,10 +16,10 @@
 Motor Lmotor(0x30, _MOTOR_A, 1000);
 Motor Rmotor(0x30, _MOTOR_B, 1000);
 
-TankBase myBase(Lmotor,_CW,Rmotor,_CCW);
+HwTankBase myBase(Lmotor,_CW,Rmotor,_CCW);
 
 //My LED:
-LED myLED(LED_BUILTIN);
+HwLED myLED(LED_BUILTIN);
 
 CmdBinkLED blinky(myLED,1);
 

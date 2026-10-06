@@ -1,7 +1,7 @@
 #pragma once
 #include "WEMOS_Motor.h"
 
-class TankBase{
+class HwTankBase{
     private:
         Motor& leftMotor;
         Motor& rightMotor;
@@ -17,7 +17,7 @@ class TankBase{
         }
 
     public:
-        TankBase(Motor& leftMotor, uint8_t leftMotorDir, Motor& rightMotor, uint8_t rightMotorDir): 
+        HwTankBase(Motor& leftMotor, uint8_t leftMotorDir, Motor& rightMotor, uint8_t rightMotorDir): 
             leftMotor(leftMotor), 
             rightMotor(rightMotor), 
             leftMotorDir(leftMotorDir), 

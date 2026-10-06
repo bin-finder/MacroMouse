@@ -1,7 +1,7 @@
 #pragma once 
 #include <Arduino.h>
 
-struct LED{
+struct HwLED{
     public:
         enum state {OFF, ON};
     private:
@@ -9,7 +9,7 @@ struct LED{
     public:
         int pin;
 
-        LED(int pin): pin(pin){
+        HwLED(int pin): pin(pin){
             pinMode(pin,OUTPUT);
         }
 
