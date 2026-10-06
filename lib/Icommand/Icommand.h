@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include "LazyArray.h"
 
+//TODO: Figure out how to get rid of this, and move to ArrayCommands instead if having a lengtho of 1
 #define maxSubProcesses 1
 
 class Icommand{
@@ -16,9 +17,6 @@ class Icommand{
         commandStates state = NOT_STARTED;
 
     public:
-
-        Icommand()
-        {}
 
         void preUpdate(){
             update();
