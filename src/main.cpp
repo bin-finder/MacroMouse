@@ -8,6 +8,8 @@
 #include "TankBase.h"
 #include "WaitCommand.h"
 #include "LoopCommand.h"
+#include "LED.h"
+#include "CmdBlinkLED.h"
 
 
 //My motors:
@@ -15,6 +17,11 @@ Motor Lmotor(0x30, _MOTOR_A, 1000);
 Motor Rmotor(0x30, _MOTOR_B, 1000);
 
 TankBase myBase(Lmotor,_CW,Rmotor,_CCW);
+
+//My LED:
+LED myLED(LED_BUILTIN);
+
+CmdBinkLED blinky(myLED,1);
 
 // const char* states[] = {"STOP", "GO", "BLINK"};
 // StateHandeler myHandeler(states, 3);
@@ -37,6 +44,9 @@ LoopCommand driveLoop(&drivePathcmd);
 Icommand* mainLoop[] = {&initialWait,&driveLoop};
 ArrayCommand mainLoopCmd(mainLoop,2);
 
+Icommand* blinkLoop[] = {&blinky,&mainLoopCmd};
+Synchronous masterLoop(blinkLoop,2);
+
 // NoNoOne cmd1(4);
 // LoopCommand myLoop(&cmd1);
 // NoNoOne cmd2(3);
@@ -47,7 +57,7 @@ ArrayCommand mainLoopCmd(mainLoop,2);
 
 void setup() {
   Serial.begin(9600); 
-  base.spinup(&mainLoopCmd);
+  base.spinup(&masterLoop);
 }
 
 void loop() {  
