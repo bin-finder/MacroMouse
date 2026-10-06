@@ -24,6 +24,7 @@ class ArrayCommand : public Icommand{
         }
 
         void update() override{
+            commands[currentCommand]->preUpdate();
             if(commands[currentCommand]->getState() == STOPED){
                 if(currentCommand < numCommands - 1) {
                     currentCommand++;
@@ -31,7 +32,7 @@ class ArrayCommand : public Icommand{
                 }
                 else stop();
             }
-            commands[currentCommand]->preUpdate();
+            
         }
 
         void postStop()override{
