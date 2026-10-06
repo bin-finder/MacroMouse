@@ -19,7 +19,7 @@ class LazyArray{
 
     public:
 
-        LazyArray(T arr[], unsigned int size): arr(arr), size(size){}
+        LazyArray(T arr[], int size): arr(arr), size(size){}
 
         uint16_t getLastIndex(){
             return endIndex;

@@ -7,17 +7,17 @@ class NoNoOne: public Icommand{
     NoNoOne(int num): num(num){}
 
     void startup() override{
-        Serial.println("UUUUUAHH 1");
+        Serial.println("UUUUUAHH 1\n Im wakeing up");
     }
 
     void update() override{
-        Serial.print("Log ");
-        Serial.println(num);
+        Serial.print(num);
+        Serial.println(" im just so radioactive");
     }
 
     void postStop() override{
         Serial.print(num);
-        Serial.println(" Died!");
+        Serial.println(" died of radiation poisioning.");
     }
 
 };

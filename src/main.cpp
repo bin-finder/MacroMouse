@@ -4,6 +4,9 @@
 // #include "StateHandeler.h"
 #include "BaseCommand.h"
 #include "NoNoOne.h"
+#include "arrayCommand.h"
+#include "LazyArray.h"
+#include "synchronous.h"
 
 //My motors:
 // Motor Lmotor(0x30, _MOTOR_A, 1000);
@@ -21,21 +24,22 @@ BaseCommand base = BaseCommand();
 
 NoNoOne command = NoNoOne(1);
 NoNoOne command2 = NoNoOne(2);
+NoNoOne command3 = NoNoOne(3);
+
+Icommand* commandArr1[] = {&command,&command2};
+LazyArray<Icommand*> arrayCommand2(commandArr1,2);
+arrayCommand arr(arrayCommand2);
+
+synchronous sync(arr,command3);
 
 void setup() {
 
   Serial.begin(9600);
-  base.spinup(&command);
-  base.spinup(&command2);
-  delay(1000);
-  base.update();
-  delay(1000);
-  base.preUpdate();
-  delay(1000);
-  base.stop();
+  base.spinup(&arr);
 }
 
 void loop() {  
-
+  base.update();
+  delay(1000);
 }
 
