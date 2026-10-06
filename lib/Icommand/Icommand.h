@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include "LazyArray.h"
 
-#define maxSubProcesses 10
+#define maxSubProcesses 1
 
 class Icommand{
     public:
@@ -24,6 +24,7 @@ class Icommand{
             update();
             for(int i = 0; i < mySubprocesses.getLastIndex(); i++){
                 if(mySubprocesses[i]->getState() == RUNNING) mySubprocesses[i]->preUpdate();
+                else if(mySubprocesses[i]->getState() == STOPED) mySubprocesses.pop_back();
             }
         }
 
@@ -41,7 +42,9 @@ class Icommand{
         void stop(){
             for(int i = 0; i < mySubprocesses.getLastIndex(); i++){
                 mySubprocesses[i]->stop();
-            } 
+            }
+
+            //IDK if I need this anymore...
             if(state == RUNNING) postStop();
             state = STOPED;
         }

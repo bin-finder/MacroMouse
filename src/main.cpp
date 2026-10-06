@@ -7,12 +7,17 @@
 #include "ArrayCommand.h"
 #include "LazyArray.h"
 #include "Synchronous.h"
+#include "DriveCommand.h"
+#include "TankBase.h"
+#include "WaitCommand.h"
+#include "LoopCommand.h"
+
 
 //My motors:
-// Motor Lmotor(0x30, _MOTOR_A, 1000);
-// Motor Rmotor(0x30, _MOTOR_B, 1000);
+Motor Lmotor(0x30, _MOTOR_A, 1000);
+Motor Rmotor(0x30, _MOTOR_B, 1000);
 
-// TankBase myBase(Lmotor,_CW,Rmotor,_CCW);
+TankBase myBase(Lmotor,_CW,Rmotor,_CCW);
 
 // const char* states[] = {"STOP", "GO", "BLINK"};
 
@@ -21,6 +26,17 @@
 // uint8_t prevState = 0;
 
 BaseCommand base = BaseCommand();
+
+DriveCommand streight(100.0,100.0,1,myBase);
+
+DriveCommand turn(-100,100,1,myBase);
+
+WaitCommand wait(1);
+
+Icommand* drivePath[] ={&streight, &wait, &turn, &wait};
+ArrayCommand drivePathcmd(drivePath,4);
+
+LoopCommand driveLoop(&drivePathcmd);
 
 NoNoOne cmd1(4);
 NoNoOne cmd2(3);
@@ -31,9 +47,8 @@ ArrayCommand arr(commandArr1,3);
 
 void setup() {
 
-  Serial.begin(9600);
-  Serial.println("Hello");
-  base.spinup(&arr);
+  Serial.begin(9600); 
+  base.spinup(&driveLoop);
 }
 
 void loop() {  
