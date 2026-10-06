@@ -1,13 +1,13 @@
 #include <Arduino.h>
-#include "BaseCommand.h"
-#include "NoNoOne.h"
-#include "ArrayCommand.h"
+#include "CmdBase.h"
+#include "CmdDebug.h"
+#include "CmdArray.h"
 #include "LazyArray.h"
-#include "Synchronous.h"
-#include "DriveCommand.h"
+#include "CmdAsync.h"
+#include "CmdDrive.h"
 #include "TankBase.h"
-#include "WaitCommand.h"
-#include "LoopCommand.h"
+#include "CmdWait.h"
+#include "CmdLoop.h"
 #include "LED.h"
 #include "CmdBlinkLED.h"
 
@@ -27,25 +27,25 @@ CmdBinkLED blinky(myLED,1);
 // StateHandeler myHandeler(states, 3);
 // uint8_t prevState = 0;
 
-BaseCommand base = BaseCommand();
+CmdBase base = CmdBase();
 
-DriveCommand streight(100.0,100.0,1,myBase);
+CmdDrive streight(100.0,100.0,1,myBase);
 
-DriveCommand turn(-100,100,1,myBase);
+CmdDrive turn(-100,100,1,myBase);
 
-WaitCommand wait(1);
+CmdWait wait(1);
 
-WaitCommand initialWait(7);
+CmdWait initialWait(7);
 
 Icommand* drivePath[] = {&streight, &wait, &turn, &wait};
-ArrayCommand drivePathcmd(drivePath,4);
-LoopCommand driveLoop(&drivePathcmd);
+CmdArray drivePathcmd(drivePath,4);
+CmdLoop driveLoop(&drivePathcmd);
 
 Icommand* mainLoop[] = {&initialWait,&driveLoop};
-ArrayCommand mainLoopCmd(mainLoop,2);
+CmdArray mainLoopCmd(mainLoop,2);
 
 Icommand* blinkLoop[] = {&blinky,&mainLoopCmd};
-Synchronous masterLoop(blinkLoop,2);
+CmdAsync masterLoop(blinkLoop,2);
 
 // NoNoOne cmd1(4);
 // LoopCommand myLoop(&cmd1);

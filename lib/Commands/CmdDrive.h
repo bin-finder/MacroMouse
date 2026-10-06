@@ -2,7 +2,7 @@
 #include "TankBase.h"
 #include "Icommand.h"
 
-class DriveCommand: public Icommand{
+class CmdDrive: public Icommand{
     private:
         float powerLeft, powerRight, time;
         TankBase& base;
@@ -10,7 +10,7 @@ class DriveCommand: public Icommand{
         int startTime;
 
     public:
-        DriveCommand(float powerLeft, float powerRight, float time, TankBase& base): 
+        CmdDrive(float powerLeft, float powerRight, float time, TankBase& base): 
             powerLeft(powerLeft), 
             powerRight(powerRight), 
             time(time),

@@ -1,12 +1,12 @@
 #pragma once
 #include "Icommand.h"
 
-class LoopCommand: public Icommand{
+class CmdLoop: public Icommand{
     
     Icommand* command;
     
     public:
-        LoopCommand(Icommand* command) : command(command){}
+        CmdLoop(Icommand* command) : command(command){}
         
         void startup() override{
             command->preStartup();

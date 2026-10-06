@@ -1,11 +1,11 @@
 #pragma once
 #include "Icommand.h"
 
-class NoNoOne: public Icommand{
+class CmdDebug: public Icommand{
     public:
     int num;
     int itterator;;
-    NoNoOne(int num): num(num){}
+    CmdDebug(int num): num(num){}
 
     void startup(){
         itterator = 1;

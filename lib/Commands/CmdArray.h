@@ -6,7 +6,7 @@
  * @brief This command takes in a LazyArray of command pointers, and runs every one each in turn, and waits for it to end
  */
 
-class ArrayCommand : public Icommand{
+class CmdArray : public Icommand{
     private:
         Icommand** commands;
         unsigned int numCommands;
@@ -17,7 +17,7 @@ class ArrayCommand : public Icommand{
          * @param commands A LazyArray of commands to be run in sequence.
          */
 
-        ArrayCommand(Icommand** commands, unsigned int numCommands): commands(commands), numCommands(numCommands){}
+        CmdArray(Icommand** commands, unsigned int numCommands): commands(commands), numCommands(numCommands){}
 
         void startup() override{
             currentCommand = 0;

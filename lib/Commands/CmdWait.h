@@ -1,13 +1,13 @@
 #pragma once
 #include "Icommand.h"
 
-class WaitCommand: public Icommand{
+class CmdWait: public Icommand{
 
     double time;
     int startTime;
 
     public:
-        WaitCommand(double time): time(time){}
+        CmdWait(double time): time(time){}
 
         void startup() override{
             startTime = millis();
