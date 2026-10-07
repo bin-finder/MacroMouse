@@ -16,4 +16,6 @@ class CmdWait: public Icommand{
         void update() override{
             if(millis() - startTime > time*1000) stop();
         }
+
+        void postStop(){}
 };

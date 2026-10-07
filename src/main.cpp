@@ -1,65 +1,50 @@
 #include <Arduino.h>
-#include "CmdBase.h"
-#include "CmdDebug.h"
 #include "CmdArray.h"
-#include "LazyArray.h"
 #include "CmdAsync.h"
-#include "CmdDrive.h"
-#include "HwTankBase.h"
-#include "CmdWait.h"
-#include "CmdLoop.h"
-#include "HwLED.h"
+#include "CmdBase.h"
 #include "CmdBlinkLED.h"
+#include "CmdDebug.h"
+#include "CmdDrive.h"
+#include "CmdLoop.h"
+#include "CmdWait.h"
+#include "HwLED.h"
+#include "HwTankBase.h"
 
-
-//My motors:
+//My motors
 Motor Lmotor(0x30, _MOTOR_A, 1000);
 Motor Rmotor(0x30, _MOTOR_B, 1000);
-
 HwTankBase myBase(Lmotor,_CW,Rmotor,_CCW);
 
-//My LED:
+//My LEDs
 HwLED myLED(LED_BUILTIN);
-
 CmdBinkLED blinky(myLED,1);
 
-// const char* states[] = {"STOP", "GO", "BLINK"};
-// StateHandeler myHandeler(states, 3);
-// uint8_t prevState = 0;
-
-CmdBase base = CmdBase();
-
+//driveing commands
 CmdDrive streight(100.0,100.0,1,myBase);
-
 CmdDrive turn(-100,100,1,myBase);
-
-CmdWait wait(1);
-
+CmdWait driveWait(1);
+CmdWait turnWait(0.25);
 CmdWait initialWait(7);
 
-Icommand* drivePath[] = {&streight, &wait, &turn, &wait};
+//Set up drive loop
+Icommand* drivePath[] = {&streight, &driveWait, &turn, &turnWait};
 CmdArray drivePathcmd(drivePath,4);
 CmdLoop driveLoop(&drivePathcmd);
 
+//Add initial delay
 Icommand* mainLoop[] = {&initialWait,&driveLoop};
 CmdArray mainLoopCmd(mainLoop,2);
 
+//Make the LED blink all the time
 Icommand* blinkLoop[] = {&blinky,&mainLoopCmd};
 CmdAsync masterLoop(blinkLoop,2);
 
-// NoNoOne cmd1(4);
-// LoopCommand myLoop(&cmd1);
-// NoNoOne cmd2(3);
-// NoNoOne cmd3(2);
-// Icommand* commandArr1[] = {&cmd1, &cmd2, &cmd3};
-// ArrayCommand SyncArr(commandArr1,3);
-// LoopCommand myLoop(&SyncArr);
+CmdBase base = CmdBase(&masterLoop);
 
 void setup() {
   Serial.begin(9600); 
-  base.spinup(&masterLoop);
 }
 
 void loop() {  
-  base.preUpdate();
+  base.update();
 }

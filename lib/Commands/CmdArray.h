@@ -25,7 +25,7 @@ class CmdArray : public Icommand{
         }
 
         void update() override{
-            commands[currentCommand]->preUpdate();
+            commands[currentCommand]->update();
             if(commands[currentCommand]->getState() == STOPED){
                 if(currentCommand < numCommands - 1) {
                     currentCommand++;

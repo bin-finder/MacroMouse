@@ -27,7 +27,7 @@ class CmdAsync: public Icommand{
 
         void update() override{
             for(unsigned int i = 0; i < numCommands; i++){
-                commands[i]->preUpdate();
+                commands[i]->update();
                 if(commands[i]->getState() == STOPED) stop();
             }
         }

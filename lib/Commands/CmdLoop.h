@@ -14,7 +14,7 @@ class CmdLoop: public Icommand{
 
         void update() override{
             if(command->getState() == STOPED) command->preStartup();
-            command->preUpdate();
+            command->update();
         }
 
         void postStop() override{
