@@ -21,9 +21,9 @@ CmdBinkLED blinky(myLED,1);
 
 //driveing commands
 CmdDrive streight(100.0,100.0,1,myBase);
-CmdDrive turn(-100,100,1,myBase);
+CmdDrive turn(-100,100,0.25,myBase);
 CmdWait driveWait(1);
-CmdWait turnWait(0.25);
+CmdWait turnWait(1);
 CmdWait initialWait(7);
 
 //Set up drive loop
@@ -42,7 +42,8 @@ CmdAsync masterLoop(blinkLoop,2);
 CmdBase base = CmdBase(&masterLoop);
 
 void setup() {
-  Serial.begin(9600); 
+  Serial.begin(9600);
+  base.startup(); 
 }
 
 void loop() {  

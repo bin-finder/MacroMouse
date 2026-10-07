@@ -7,11 +7,11 @@ class CmdBase : public Icommand{
     public:
         CmdBase(Icommand* command): command(command){}
 
-        void update(){
+        void update() override{
             command->update();
         }
 
-        void postStop(){
+        void postStop() override{
             command->stop();
         }
 
