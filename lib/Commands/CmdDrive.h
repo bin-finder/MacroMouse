@@ -10,7 +10,7 @@ class CmdDrive: public Icommand{
         int startTime;
 
     public:
-        CmdDrive(float powerLeft, float powerRight, float time, HwTankBase& base): 
+        CmdDrive(float powerLeft, float powerRight, HwTankBase& base): 
             powerLeft(powerLeft), 
             powerRight(powerRight), 
             time(time),
@@ -22,9 +22,7 @@ class CmdDrive: public Icommand{
             base.onPercent(powerLeft, powerRight);
         }
 
-        void update() override{
-            if(millis()-startTime >= time*1000) stop();
-        }
+        void update() override{}
 
         void postStop() override{
             base.stop();

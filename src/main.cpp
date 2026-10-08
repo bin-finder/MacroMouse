@@ -20,11 +20,19 @@ HwLED myLED(LED_BUILTIN);
 CmdBinkLED blinky(myLED,1);
 
 //driveing commands
-CmdDrive streight(100.0,100.0,1,myBase);
-CmdDrive turn(-100,100,0.25,myBase);
+CmdDrive streightOn(100.0,100.0,myBase);
+CmdDrive turnOn(-100,100,myBase);
+CmdWait driveTime(1);
 CmdWait driveWait(1);
+CmdWait turnTime(0.25);
 CmdWait turnWait(1);
 CmdWait initialWait(7);
+
+Icommand* a[] = {&driveTime, &streightOn};
+Icommand* b[] = {&turnTime, &turnOn};
+
+CmdAsync streight(a,2);
+CmdAsync turn(b,2);
 
 //Set up drive loop
 Icommand* drivePath[] = {&streight, &driveWait, &turn, &turnWait};
